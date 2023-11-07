@@ -25,11 +25,11 @@ for i in range(num_classes):
                 break
         
         counter = 1
-        while counter <= imgs_per_class:
+        while counter <= imgs_per_class: # start reading images
             ret, frame = cap.read()
             cv2.imshow('Frame', frame)
             cv2.waitKey(500)
-            cv2.imwrite(os.path.join(DATA_DIR, str(i + 1), '{}.jpg'.format(counter)), frame)
+            cv2.imwrite(os.path.join(DATA_DIR, str(i + 1), '{}.jpg'.format(counter)), frame) # save the frame
             counter += 1
 
 cap.release()
