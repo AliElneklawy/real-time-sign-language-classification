@@ -1,6 +1,7 @@
 import os
 import cv2
 
+
 DATA_DIR = './images'
 num_classes = 26
 imgs_per_class = 10
