@@ -71,26 +71,6 @@ button:disabled {
     cursor: not-allowed;
 }
 
-.results {
-    text-align: center;
-    margin-top: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.prediction {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #4a6fa5;
-    margin: 10px 0;
-}
-
-.confidence {
-    font-size: 1.2em;
-    color: #666;
-}
 
 @media (max-width: 768px) {
     .container {

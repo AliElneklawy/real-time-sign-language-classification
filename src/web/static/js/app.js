@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('video-feed');
-    const predictionElement = document.getElementById('prediction');
-    const confidenceElement = document.getElementById('confidence');
-    
     let isProcessing = false;
     
     // Start video stream automatically when the page loads
@@ -60,15 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const blob = await captureFrame();
             if (!blob) return;
             
-            // Classify the frame
-            const result = await classifyFrame(blob);
-            
-            // Update UI with results
-            if (result.status === 'success' && result.prediction) {
-                updateResults(result.prediction, result.confidence || 0);
-            } else if (result.message === 'No hands detected') {
-                updateResults('-', 0);
-            }
+            // Classify the frame (we still need this to process the video)
+            await classifyFrame(blob);
             
         } catch (error) {
             console.error('Error processing video:', error);
@@ -113,8 +103,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function updateResults(prediction, confidence) {
-        predictionElement.textContent = prediction || '-';
-        confidenceElement.textContent = `${(confidence * 100).toFixed(1)}%`;
-    }
 });
