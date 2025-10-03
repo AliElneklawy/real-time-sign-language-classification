@@ -4,24 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const stopBtn = document.getElementById('stop-btn');
     const predictionElement = document.getElementById('prediction');
     const confidenceElement = document.getElementById('confidence');
-    const cameraPermission = document.getElementById('camera-permission');
     
     let stream = null;
     let isProcessing = false;
     let processingInterval = null;
-    
-    // Check for camera permissions
-    async function checkCameraPermission() {
-        try {
-            await navigator.mediaDevices.getUserMedia({ video: true });
-            cameraPermission.style.display = 'none';
-            return true;
-        } catch (err) {
-            console.error('Error accessing camera:', err);
-            cameraPermission.style.display = 'block';
-            return false;
-        }
-    }
     
     // Capture a frame from the video element
     function captureFrame() {

@@ -92,16 +92,6 @@ button:disabled {
     color: #666;
 }
 
-.camera-permission {
-    text-align: center;
-    padding: 20px;
-    background-color: #fff3cd;
-    border-left: 4px solid #ffc107;
-    margin: 20px 0;
-    border-radius: 4px;
-    display: none;
-}
-
 @media (max-width: 768px) {
     .container {
         padding: 10px;
