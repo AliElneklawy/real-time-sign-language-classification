@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('video-feed');
-    const startBtn = document.getElementById('start-btn');
-    const stopBtn = document.getElementById('stop-btn');
     const predictionElement = document.getElementById('prediction');
     const confidenceElement = document.getElementById('confidence');
     
-    let stream = null;
     let isProcessing = false;
-    let processingInterval = null;
+    
+    // Start video stream automatically when the page loads
+    startVideo();
     
     // Capture a frame from the video element
     function captureFrame() {
@@ -84,19 +83,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start video stream
     async function startVideo() {
         try {
-            const hasPermission = await checkCameraPermission();
-            if (!hasPermission) return;
+            // Get the video feed URL from the data attribute
+            const videoSrc = video.getAttribute('data-video-src');
+            if (!videoSrc) {
+                throw new Error('Video source not found');
+            }
             
-            // Use the video feed from the server instead of direct camera access
-            video.src = '{{ url_for("video_feed") }}';
+            // Set the video source
+            video.src = videoSrc;
             
             // Wait for the video to start playing
             await new Promise((resolve) => {
                 video.onplaying = resolve;
+                // Add error handler
+                video.onerror = (e) => {
+                    console.error('Video error:', e);
+                    throw new Error('Failed to load video feed');
+                };
             });
             
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
             isProcessing = true;
             
             // Start processing frames
@@ -104,45 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
         } catch (err) {
             console.error('Error starting video:', err);
-            alert('Could not access the video feed. Please make sure the server is running.');
+            alert('Could not access the video feed. Please make sure the server is running and the camera is connected.');
         }
     }
     
-    // Stop video stream
-    function stopVideo() {
-        isProcessing = false;
-        
-        if (video.srcObject) {
-            const tracks = video.srcObject.getTracks();
-            tracks.forEach(track => track.stop());
-            video.srcObject = null;
-        } else if (video.src) {
-            video.src = '';
-        }
-        
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-        
-        // Clear results
-        updateResults('-', 0);
-    }
-    
-    // Update the UI with prediction results
     function updateResults(prediction, confidence) {
         predictionElement.textContent = prediction || '-';
         confidenceElement.textContent = `${(confidence * 100).toFixed(1)}%`;
     }
-    
-    // Event listeners
-    startBtn.addEventListener('click', startVideo);
-    stopBtn.addEventListener('click', stopVideo);
-    
-    // Initial setup
-    stopBtn.disabled = true;
-    checkCameraPermission();
-    
-    // Clean up on page unload
-    window.addEventListener('beforeunload', () => {
-        stopVideo();
-    });
 });

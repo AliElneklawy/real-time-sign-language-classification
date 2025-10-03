@@ -17,13 +17,9 @@
 
         <div class="content">
             <div class="video-container">
-                <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Video Feed">
+                <img id="video-feed" data-video-src="{{ url_for('video_feed') }}" alt="Video Feed">
             </div>
 
-            <div class="controls">
-                <button id="start-btn">Start Camera</button>
-                <button id="stop-btn" disabled>Stop Camera</button>
-            </div>
 
             <div class="results">
                 <h2>Prediction</h2>
