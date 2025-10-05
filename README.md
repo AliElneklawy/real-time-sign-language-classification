@@ -10,7 +10,7 @@ This project aims to classify sign language letters using machine learning. This
 ## Demo
 
 <p align="center">
-  <img src="https://github.com/AliElneklawy/real-time-sign-language-classification/blob/main/utils/demo.gif" alt="demo">
+  <img src="https://github.com/AliElneklawy/real-time-sign-language-classification/blob/main/assets/demo.gif" alt="demo">
 </p>
 
 ## Project Structure
