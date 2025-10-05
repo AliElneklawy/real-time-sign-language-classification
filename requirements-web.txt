@@ -1,6 +1,0 @@
-flask==2.3.3
-flask-cors==4.0.0
-opencv-python-headless==4.8.0.76
-numpy>=1.19.5
-mediapipe>=0.8.9.1
-python-dotenv==1.0.0
